@@ -1,0 +1,208 @@
+.page{
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;  background-color: rgb(21, 32,43);
+  color: white;
+}
+
+.header {
+  display: block;
+  height: 150px;
+  width: 100%;
+  background-image: url('./Components/images/flower.JPG');
+  background-size: cover;
+  background-position: center center;
+  max-width: 100%;
+}
+
+.profile{
+  display: block;
+  border-color: black;
+  width: 125px;
+  height: 125px;
+  left: 20px;
+  transform:translate(0%, -50%);
+  border-radius: 9999px;
+  border-width: 4px;
+  border-color: rgb(21, 32,43);
+  border-style: solid;
+  background-size: cover;
+  background-image: url('./Components/images/profile.jpg');
+  position: relative;
+}
+
+.Name{
+  background-color: rgb(21, 32,43);
+  font-weight: 800;
+  font-family:system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+  left: 10px;
+  transform: translate(0%,-200%);
+  position: relative;
+  font-size: 19px;
+}
+
+.bio-bar{
+  left: 10px;
+  display: block;
+  position: relative;
+  transform: translate(0%, -50%);
+}
+.bio p{
+  background-color: rgb(21, 32,43);
+  display:block;
+  color: rgb(136, 153, 166);
+  font-weight: 400;
+  font-family:system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+  font-size: 15px;
+}
+
+.nav-bar{
+  display: flex;
+}
+
+@media screen and (max-width: 600px){
+  .nav-bar > div{
+    display: block;
+  }
+}
+
+.tabList {
+  display: flex;
+}
+.tab {
+
+  display:inline-block;
+  list-style-type: none;
+  background-color: inherit;
+  border: none;
+  outline: none;
+  height: 53px;
+  width: 100px;
+  text-align: center;
+  cursor: pointer;
+  color: rgb(136, 153, 166);
+  /*position: relative;*/
+  border-bottom-color: rgb(136, 153, 166);
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  font-size: 15px;
+  font-weight: bold;
+  flex-direction: row;
+  transition-duration: 0.3s;
+}
+
+.row {
+  display: -ms-flexbox; /* IE10 */
+  display: flex;
+  -ms-flex-wrap: wrap; /* IE10 */
+  flex-wrap: wrap;
+  padding: 0 4px;
+}
+
+/* Create four equal columns that sits next to each other */
+.column {
+  -ms-flex: 25%; /* IE10 */
+  flex: 25%;
+  max-width: 24%;
+  padding: 0 4px;
+}
+
+.column img {
+  margin-top: 8px;
+  vertical-align: middle;
+  width: 100%;
+}
+
+/* Responsive layout - makes a two column-layout instead of four columns */
+@media screen and (max-width: 800px) {
+  .column {
+    -ms-flex: 50%;
+    flex: 50%;
+    max-width: 50%;
+  }
+}
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .column {
+    -ms-flex: 100%;
+    flex: 100%;
+    max-width: 100%;
+  }
+}
+
+.homepic{
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.player-wrapper {
+  display: inline-block;
+  padding: 10px;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 1rem;
+}
+.react-player {
+  width: 560;
+  height: 315;
+}
+
+.vidclass{
+  display: flex;
+}
+
+.caption{
+  padding: 10px;
+  text-align: justify;
+}
+
+.linkim{
+  display: flex;
+}
+
+.linkim img{
+  width: 300px;
+  max-width: 100%;
+  height: auto;
+}
+
+#myBtn {
+  display: none;
+  position: fixed; /* Fixed/sticky position */
+  bottom: 15px; /* Place the button at the bottom of the page */
+  right: 20px; /* Place the button 30px from the right */
+  border: none; /* Remove borders */
+  outline: none; /* Remove outline */
+  background-color: rgb(0, 172, 238); ; /* Set a background color */
+  color: white; /* Text color */
+  cursor: pointer; /* Add a mouse pointer on hover */
+  padding: 15px; /* Some padding */
+  border-radius: 9999px; /* Rounded corners */
+  font-size: 14px; /* Increase font size */
+  font-weight: 800;
+
+}
+
+#myBtn:hover {
+  background-color: rgb(29, 161, 242); /* Add a dark-grey background on hover */
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;  /*Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%; /* Full height */
+  /*transform: translate(-50%, 0%);*/
+  background-color: pink;
+}
+
+/* Modal Content (Image) */
+.modal-content {
+  position: relative;
+  margin: auto;
+    width: 80%;
+    max-width: 700px;
+}
