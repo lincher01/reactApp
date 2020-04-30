@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import './App.css'
 import Body from './Components/Body';
 import TabList from './Components/TabList';
-import flower from './Components/images/flower.JPG'
-
+import BackToTop from "react-back-to-top-button";
+import SimpleReactLightbox from 'simple-react-lightbox';
 export class App extends Component {
   constructor(){
     super();
@@ -15,9 +15,19 @@ export class App extends Component {
         activeTab: id
       })
     }
-  }
+  };
   render() {
-    const tabs = [
+  const buttonStyle = {
+    color: "white",
+    backgroundColor: 'rgb(0,172,238)',
+    fontSize: '14px',
+    fontWeight: '800',
+    borderRadius: '9999px',
+    padding: '15px',
+    cursor: 'pointer',
+
+  };
+  const tabs = [
     {
       id: 1,
       title: 'Home'
@@ -34,8 +44,10 @@ export class App extends Component {
       id: 4,
       title: 'Links'
     },
-    ]
+  ];
+
     return (
+
       <div className = "page">
         <div className = "header">
         </div>
@@ -51,16 +63,24 @@ export class App extends Component {
             <p>Santa Barbara, CA</p>
           </div>
         </div>
-        <div className = "body">
-          <div className = "nav-bar">
-            <TabList tabs = {tabs} 
+        <div className = "nav-bar">
+          <TabList tabs = {tabs} 
             changeTab={this.changeTab}
             activeTab={this.state.activeTab}/>
-          </div>
+        </div>
+        <div className = "body">
           <div className="main-body">
-            <Body activeTab={this.state.activeTab}/>
+            <SimpleReactLightbox>
+              <Body activeTab={this.state.activeTab}/>
+            </SimpleReactLightbox>
           </div>
         </div>
+        <BackToTop
+          showAt='100'
+          style = {buttonStyle}
+        >
+        <span>Back To Top</span>
+      </BackToTop>
       </div>
     );
   }

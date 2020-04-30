@@ -12,7 +12,7 @@ export class Links extends Component {
 					<a href="https://www.youtube.com/watch?v=MIhNXrOuX5A&feature=emb_title">
 						<img src = {day3} alt='day3'/>
 					</a>
-					<p>
+					<p className = 'caption'>
 						It's only my 1st voluntary cs class out here ¯\_(ツ)_/¯
 					</p>
 				</div>
@@ -20,7 +20,7 @@ export class Links extends Component {
 					<a href="https://lincher01.github.io/website/">
 						<img src = {p} alt='p'/>
 					</a>
-					<p>
+					<p className = 'caption'>
 						me everytime bash won't let me push to github because I forgot to pull the updates my friends have made to our project.
 					</p>
 				</div>
@@ -28,7 +28,7 @@ export class Links extends Component {
 					<a href="https://sites.google.com/view/front-door-securtiy/">
 						<img src = {visual} alt='visual'/>
 					</a>
-					<p>
+					<p className = 'caption'>
 						Website of the ECE 153 project I did with my roommate.
 					</p>
 				</div>

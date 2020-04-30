@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Tab from './Tab'
+import Tab from './Tab';
+import './../App.css';
 
 export class TabList extends Component {
 	render() {

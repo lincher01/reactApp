@@ -10,22 +10,27 @@ export class Videos extends Component {
 		return (
 			<div className = 'player-wrapper'>
 				<div className = "vidclass">
-					<ReactPlayer
-						className = 'react-player'
-						url = {vid}
-					/>
-					<p className = 'caption'>
-						ECE 153 project using an RFID and Bluetooth to increase door security. I tried to put the entire video but github won't take vide's that are greater than 100MB I guess :(
-					</p>
+					<div className = "vrow">
+						<ReactPlayer
+							className = 'react-player'
+							url = {vid}
+							controls
+						/>
+						<p className = 'caption'>
+							ECE 153 project using an RFID and Bluetooth to increase door security. I tried to put the entire video but github won't take vide's that are greater than 100MB I guess :(
+						</p>
+					</div>
 				</div>
 				<div className = "vidclass">
-					<ReactPlayer
-						className='react-player'
-						url="https://www.youtube.com/watch?v=oJIkBSaGiG0#action=share"
-					/>
-					<p className = 'caption'>
-						a good song :)
-					</p>
+					<div className = "vrow">
+						<ReactPlayer
+							className='react-player'
+							url="https://www.youtube.com/watch?v=oJIkBSaGiG0#action=share"
+							/>
+						<p className = 'caption'>
+							a good song :)
+						</p>
+					</div>
 				</div>
 			</div>
 		);
