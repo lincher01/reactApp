@@ -3,6 +3,7 @@ import React, { Component, useEffect } from 'react';
 import firebase from 'firebase';
 import config from './../config.js';
 import date from 'date-and-time';
+import { motion } from 'framer-motion';
 // firebase.database.ServerValue.TIMESTAMP;
 firebase.initializeApp(config);
 const format = date.compile('MMM D YYYY hh:mm A');
@@ -122,7 +123,7 @@ export class Guests extends Component {
   			<div className = 'container'>
           <section className = 'add-item'>
             <h1>What's Happening!?</h1>
-            <form onSubmit = {this.handleSubmit}>
+            <motion.form onSubmit = {this.handleSubmit} animate={{ x: 10 }} transition={{ duration: 1}}>
               <label>Name</label>
                 <input 
                   required
@@ -160,14 +161,14 @@ export class Guests extends Component {
                   onChange = {this.handleChange} 
                   value = {this.state.email}/>
   				    <button>Submit</button>
-            </form>
+            </motion.form>
           </section>
           <section className= 'display-item'>
             <ul>
               {this.state.items.map((item) =>{
                 if(item.perm == 'true'){
                   return(
-                    <li key = {item.id}>
+                    <motion.li key = {item.id} animate={{x:20}} translate={{duration:1}}>
                       <div className = "date">
                           {item.date}
                       </div>
@@ -185,7 +186,7 @@ export class Guests extends Component {
                       <p>
                         {item.email}
                       </p>
-                    </li>
+                    </motion.li>
                   )
                 }
               })}  
