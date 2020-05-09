@@ -4,18 +4,18 @@ import Body from './Components/Body';
 import TabList from './Components/TabList';
 import BackToTop from "react-back-to-top-button";
 import SimpleReactLightbox from 'simple-react-lightbox';
+
 export class App extends Component {
   constructor(){
     super();
-    this.state = {
-      activeTab: 1
-    }
+    this.state = {activeTab: 1}
     this.changeTab = (id) =>{
       this.setState({
         activeTab: id
       })
     }
   };
+
   render() {
   const buttonStyle = {
     color: "white",
@@ -43,6 +43,10 @@ export class App extends Component {
     {
       id: 4,
       title: 'Links'
+    },
+    {
+      id: 5,
+      title: 'Guests'
     },
   ];
 

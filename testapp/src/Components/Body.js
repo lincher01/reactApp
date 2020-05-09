@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import Home from './Home';
 import Images from './Images';
 import Videos from './Videos';
-import Links from './Links'
+import Links from './Links';
+import Guests from './Guests';
 
 export class Body extends Component {
 	displayContent = () => {
@@ -13,8 +14,10 @@ export class Body extends Component {
 			return<Images/>
 		else if(activeTab === 3)
 			return<Videos/>
-		else
+		else if(activeTab == 4)
 			return<Links/>
+		else
+			return<Guests/>
 	}
 	render() {
 		return (this.displayContent());

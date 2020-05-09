@@ -103,7 +103,7 @@
 .tab {
   font-family: MS Shell Dlg 2;
   display: inline-block;
-  width: 100px;
+  width: auto;
   height: 53px;
   font-size: 15px;
   font-weight: 700;
@@ -111,8 +111,8 @@
   flex-direction: row;
   cursor: pointer;
   list-style-type: inline;
-  padding-left: 2px;
-  padding-right: 2px;
+  padding-left: 14px;
+  padding-right: 14px;
 }
 
 .row {
@@ -206,15 +206,6 @@
   background-color: white;
 }
 
-.Modal{
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 80%;
-  height: auto;
-  background: rgba(0, 0, 0, 0.6);
-}
-
 .body{
   background-color: rgb(21, 32,43);
 }
@@ -237,4 +228,159 @@
   .vrow{
     display: block;
   }
+}
+
+.container {
+  display: flex;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-top: 30px;
+  height: 100vh;
+}
+
+.add-item {
+  border: 1px solid;
+  border-radius: 5px;
+  border-color: rgb(136, 153, 166);
+  margin-right: 50px;
+  background-color: rgb(21, 32,43);
+  padding: 20px 18px;
+  margin-bottom: 34px;
+  width: 25%;
+  height: 600px;
+  min-width:200px;
+  /*max-width: 200px;*/
+}
+
+.add-item form {
+  width: 100%;
+}
+
+.add-item h1 {
+  color: white;
+  margin-left: 15px;
+  margin-top: 0px;
+}
+.display-item {
+  border-radius: 5px;
+  width: 65%;
+  margin-left: 50px;
+  overflow: auto;
+  flex: 1;
+  scroll-behavior:  auto;
+}
+
+.display-item button {
+  margin-top: 20px;
+  margin-left: auto;
+  display: block;
+}
+
+.add-item form {
+  width: 100%;
+  overflow: hidden;
+  display:block;
+}
+
+
+ul {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style-type: none;
+  border: 1px solid;
+  border-color: rgb(136, 153, 166);
+  margin-right: 50px;
+  background-color: rgb(21, 32,43);
+  color: rgb(136, 153, 166);
+  margin-bottom: 30px;
+  min-width: 400px;
+}
+
+
+li p {
+  padding: 0px 15px;
+  border-color: rgb(136, 153, 166);
+  color: white;
+}
+
+
+form button {
+  width: 90%;
+  border: 0px;
+  border-radius: 9999px;
+  text-align: center;
+  background-color:rgb(0, 172, 238);
+  cursor: pointer;
+  border: 0;
+  color: white;
+  font-size: 14px;
+  padding: 15px 22px;
+}
+
+form input {
+  font-size: 22px;
+  color: white;
+  background-color: rgb(21, 32,43);
+  border-bottom: 1px solid;
+  border-left: 0px;
+  border-top: 0px;
+  border-top-color:  rgb(21, 32,43);
+  padding: 6px 22px;
+  font-size: 16px;
+  margin-bottom: 17px;
+  display: block;
+  width: 100%;  
+}
+
+form select {
+  font-size: 22px;
+  color: white;
+  background-color: rgb(21, 32,43);
+  border-bottom: 1px solid;
+  border-top: 0px;
+  border-left:0px;
+  border-top-color:  rgb(21, 32,43);
+  padding: 6px 22px;
+  font-size: 16px;
+  margin-bottom: 17px;
+  display: block;
+  width: 100%;  
+}
+form label{
+  font-size: 22px;
+  color: white;
+  background-color: rgb(21, 32,43);
+  padding: 4px 22px;
+  font-size: 16px;
+  margin-bottom: 17px;
+  display: block;
+  width: 100%; 
+}
+
+.date{
+  padding: 5px 15px;
+  text-align: right;
+  border-color: rgb(136, 153, 166);
+  color: gray;
+}
+.namebio{
+  display: flex;
+  height: auto;
+  padding: 0px 0px;
+}
+.namebio h1{
+  padding: 0px 15px;
+  border-color: rgb(136, 153, 166);
+  color: white;
+  margin:0px;
+}
+.namebio p{
+  padding-top: 9px;
+  border-color: rgb(136, 153, 166);
+  color: gray;
+  margin:0px;
 }

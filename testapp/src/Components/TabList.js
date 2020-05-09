@@ -7,7 +7,7 @@ export class TabList extends Component {
 		return this.props.tabs.map((indTab) => (
 				<Tab tab = {indTab} 
 				changeTab = {this.props.changeTab}
-				activeTab={this.props.activeTab}/>
+				activeTab = {this.props.activeTab}/>
 			));
 	}
 }
