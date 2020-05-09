@@ -123,7 +123,7 @@ export class Guests extends Component {
   			<div className = 'container'>
           <section className = 'add-item'>
             <h1>What's Happening!?</h1>
-            <motion.form onSubmit = {this.handleSubmit} animate={{ x: 10 }} transition={{ duration: 1}}>
+            <motion.form onSubmit = {this.handleSubmit} animate={{y:10}} transition={{ease:"easeOut", duration:3}}>
               <label>Name</label>
                 <input 
                   required
@@ -168,7 +168,7 @@ export class Guests extends Component {
               {this.state.items.map((item) =>{
                 if(item.perm == 'true'){
                   return(
-                    <motion.li key = {item.id} animate={{x:20}} translate={{duration:1}}>
+                    <motion.li key = {item.id} animate={{x:40}} translate={{duration:3}}>
                       <div className = "date">
                           {item.date}
                       </div>
