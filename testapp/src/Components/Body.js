@@ -4,6 +4,7 @@ import Images from './Images';
 import Videos from './Videos';
 import Links from './Links';
 import Guests from './Guests';
+import Movies from './Movies';
 
 export class Body extends Component {
 	displayContent = () => {
@@ -14,10 +15,12 @@ export class Body extends Component {
 			return<Images/>
 		else if(activeTab === 3)
 			return<Videos/>
-		else if(activeTab == 4)
+		else if(activeTab === 4)
 			return<Links/>
-		else
+		else if(activeTab === 5)
 			return<Guests/>
+		else
+			return<Movies/>
 	}
 	render() {
 		return (this.displayContent());

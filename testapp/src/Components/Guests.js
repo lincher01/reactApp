@@ -1,5 +1,5 @@
 import './../App.css';
-import React, { Component, useEffect } from 'react';
+import React, { Component } from 'react';
 import firebase from 'firebase';
 import config from './../config.js';
 import date from 'date-and-time';
@@ -16,7 +16,7 @@ const validateForm = (error, name, message) => {
   Object.values(error).forEach(
     (val) => val.length > 0 && (valid = false)
   );
-  if(name.length == 0 || message == 0){
+  if(name.length === 0 || message === 0){
     valid = false
   }
   return valid;
@@ -166,7 +166,7 @@ export class Guests extends Component {
           <section className= 'display-item'>
             <ul>
               {this.state.items.map((item) =>{
-                if(item.perm == 'true'){
+                if(item.perm === 'true'){
                   return(
                     <motion.li key = {item.id} animate={{x:40}} translate={{duration:3}}>
                       <div className = "date">

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './../App.css';
 import { SRLWrapper } from "simple-react-lightbox";
 import Gallery from 'react-photo-gallery';
-import photos from './../App.js';
+// import photos from './../App.js';
 
 export class Images extends Component {
 
