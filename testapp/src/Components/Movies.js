@@ -3,7 +3,7 @@ import './../App.css';
 import axios from 'axios';
 import SimpleReactLightbox, { SRLWrapper } from "simple-react-lightbox";
 
-const URL = "http://www.omdbapi.com/?apikey=858c4cb1&i=";
+const URL = "https://www.omdbapi.com/?apikey=858c4cb1&i=";
 let list = ["tt0377092",
 			"tt0454945",
 			"tt0381707",
