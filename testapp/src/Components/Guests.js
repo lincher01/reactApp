@@ -4,7 +4,6 @@ import firebase from 'firebase';
 import config from './../config.js';
 import date from 'date-and-time';
 import { motion } from 'framer-motion';
-// firebase.database.ServerValue.TIMESTAMP;
 firebase.initializeApp(config);
 const format = date.compile('MMM D YYYY hh:mm A');
 const validEmailRegex = 
@@ -77,7 +76,7 @@ export class Guests extends Component {
       return;
     }
     const itemsRef = firebase.database().ref('items');
-    let now  = date.format(new Date(), format).toString();
+    let now = date.format(new Date(), format).toString();
     const item = {
       name: this.state.name,
       info: this.state.info,
@@ -117,7 +116,6 @@ export class Guests extends Component {
     });
   }
 	render() {
-    const {error} = this.state;
 		return (
       <div>
   			<div className = 'container'>

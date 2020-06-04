@@ -5,6 +5,8 @@ import Videos from './Videos';
 import Links from './Links';
 import Guests from './Guests';
 import Movies from './Movies';
+import AddMovies from './AddMovies';
+import CreateLists from './CreateLists';
 
 export class Body extends Component {
 	displayContent = () => {
@@ -19,8 +21,13 @@ export class Body extends Component {
 			return<Links/>
 		else if(activeTab === 5)
 			return<Guests/>
-		else
+		else if(activeTab === 6)
 			return<Movies/>
+		else if(activeTab === 7)
+			return<AddMovies/>
+		else
+			return<CreateLists/>
+
 	}
 	render() {
 		return (this.displayContent());
