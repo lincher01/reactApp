@@ -70,7 +70,7 @@ export class CreateLists extends Component {
 		items.on('value',(data)=>{
 			var ID = data.val();
 			var keys = Object.keys(ID);
-			ListID = keys.length;
+			ListID = keys.length++;
 		})
 		firebase.database().ref("ListNames/"+val).set({id: ListID});
 		this.setState({

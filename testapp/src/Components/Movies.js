@@ -7,8 +7,8 @@ import ReactModal from 'react-modal';
 import firebase from 'firebase';
 
 const URL = "https://www.omdbapi.com/?apikey=858c4cb1&i=";
-const ref = firebase.database().ref('mList');
-const ref2 = firebase.database().ref('ListNames')
+var ref = firebase.database().ref('mList');
+var ref2 = firebase.database().ref('ListNames')
 const defaultOption = "All";
 
 export class Movies extends Component {
@@ -23,9 +23,11 @@ export class Movies extends Component {
 			movInfo:[],
 			showModal: false,
 			showThisMovie:"",
+			setList: 0,
 		}
 		this.loadMore = this.loadMore.bind(this);
-		// this.changeList = this.changeList.bind(this);
+		this.addToNewList = this.addToNewList.bind(this);
+		this.changeList = this.changeList.bind(this);
 		this.handleOpenModal = this.handleOpenModal.bind(this);
     	this.handleCloseModal = this.handleCloseModal.bind(this);
 	}
@@ -45,19 +47,25 @@ export class Movies extends Component {
 	}
 
 	getOptions(){
-		const op = []
+		var op = []
 		ref2.on('value', (data) =>{
 			var ID = data.val();
 			var keys = Object.keys(ID);
 			for(var i=0; i<keys.length; i++){
 				var k = keys[i];
+				var Id = ID[k].Lname;
 				op.push(k);
 			}
-			this.setState({
-				options:op
-			});
+			op.map(x=>{
+				let nextop={
+					value: x,
+					label: x,
+				}
+				this.setState(prevState=>({
+					options: [...prevState.options, nextop],
+				}))
+			})
 		});
-		return op
 	}
 
 	componentDidMount(){
@@ -70,9 +78,15 @@ export class Movies extends Component {
 				var Id = ID[k].Lname;
 				op.push(k);
 			}
-			this.setState({
-				options:op
-			});
+			op.map(x=>{
+				let nextop={
+					value: x,
+					label: x,
+				}
+				this.setState(prevState=>({
+					options: [...prevState.options, nextop],
+				}))
+			})
 		});
 		
 		const test = [];
@@ -94,7 +108,7 @@ export class Movies extends Component {
 						Ratings: movie.Ratings[0].Value,
 						Plot: movie.Plot,
 						Poster: movie.Poster,
-						imdbID: movie.imdbID
+						imdbID: movie.imdbID,
 					}
 					this.setState(prevState => ({
 						mList: [...prevState.mList, nextmov],
@@ -109,31 +123,38 @@ export class Movies extends Component {
 
 	Search(){
 		console.log("in search");
-		let match = false;
+		var match = false;
 		var finding = document.getElementById("searching-movie").value;
-		let newState = []
+		let newState = [];
+		let junk = [];
 		ref.on('value', (movieTitle) =>{
 			var ID = movieTitle.val();
 			var keys = Object.keys(ID);
-			for(let i in keys){
+			for(var i=0; i<keys.length; i++){
 				var k = keys[i];
 				var searchingTitle = ID[k].Title;
 				if(searchingTitle === finding){
 					newState.push(ID[k]);
 					match =true;
-				};
-			};
-			
+				}
+				else{
+					junk.push(ID[k]);
+				}
+			}
+			if(match == false){
+				alert("not found");
+				this.setState({
+					mList:junk,
+				})
+			}
+			else{
+				this.setState({
+					mList:newState,
+				})
+			}
 		});
-		if(match){
-			this.setState({mList:newState});
-			console.log("Found movie");
-
-		}
-		else{
-			alert("couldn't find movie title in database");
-		}
 	}
+
 
 	updatemList(){
 
@@ -146,9 +167,15 @@ export class Movies extends Component {
 				var Id = ID[k].Lname;
 				op.push(k);
 			}
-			this.setState({
-				options:op
-			});
+			op.map(x=>{
+				let nextop={
+					value: x,
+					label: x,
+				}
+				this.setState(prevState=>({
+					options: [...prevState.options, nextop],
+				}))
+			})
 		});
 
 		const test = [];
@@ -186,10 +213,11 @@ export class Movies extends Component {
 		console.log("deleting movie" + dMovie);
 		var ref = firebase.database().ref("mList/"+dMovie);
 		ref.remove().then(function() {
-		    console.log("Remove succeeded.")
-		}).catch(function(error) {
-			console.log("Remove failed: " + error.message)
-		});
+			console.log("Remove succeeded.")
+			})
+			.catch(function(error){
+				console.log("Remove failed: " + error.message)
+			});
 		this.setState({mList:[]})
 		this.updatemList();
 		if(this.state.showModal){
@@ -224,11 +252,12 @@ export class Movies extends Component {
   		
     	this.setState({ 
     		showModal: false,
-    		showthisMovie: "",
+    		showThisMovie: "",
     	});
   	}
 
   	viewPosters(){
+  		console.log("viewPosters")
   		const pic = this.state.mList.slice(0,this.state.init).map((indi,index) =>(
 			<div className = "mCARDS">
 				<img id={indi.imdbID} lang={indi.Director} name={indi.Ratings} alt={indi.Plot} title={indi.Title} src={indi.Poster} onClick={this.handleOpenModal}/>
@@ -237,26 +266,39 @@ export class Movies extends Component {
   		return pic
   	}
 
-  	changeList(event){
-  		// var x = document.getElementsByI
-  		// this.setState({value: event.target.value})
-  		// console.log(x)
-	}
-	addToList(e){
-		// console.log(e.target.value);
+  	changeList(e){
+  		this.setState(prevState=>({
+			setList: e.value,
+		}));
+  		this.changePosters(e.value);
 	}
 
-	getId(e){
-		// var x = document.getElementsByClassName("Dropdown-root").value;
-		// console.log(e);
-		// ref2.once('value', (data) =>{
-		// 	var ID = data.val();
-		// 	var keys = Object.keys(ID);
-		// 	for(var i=0; i<keys.length; i++){
-		// 		var k = keys[i];
-		// 		var Id = ID[k].Lname;
-				
-		// 	}
+	changePosters(a){
+		var newRef = firebase.database().ref("ListNames/"+a+"/MovieArray");
+		const test = [];
+		newRef.on('value', (data) =>{
+			var ID = data.val();
+			var keys = Object.keys(ID);
+			for(var i=0; i<keys.length; i++){
+				var k = keys[i];
+				test.push(ID[k]);
+			}
+			this.setState({
+				mList: test,
+			})
+		});
+		
+	}
+
+
+
+	addToNewList(e){
+		let ListValue = e.value;
+		let movieID = this.state.showThisMovie.imdbID;
+		axios.get(URL+movieID).then(res=>{
+			var data = res.data
+			firebase.database().ref("ListNames/"+ListValue+"/MovieArray/"+movieID).set(data)
+		})
 	}
 
 	render() {
@@ -264,9 +306,7 @@ export class Movies extends Component {
 		return (
 			<div className = "allMovies">
 				<div className = "Search-options">
-					
-						<Dropdown className="Dropdown-root" id={this.getId} options={this.state.options} onChange={this.changeList} value={this.state.listOption} placeholder="Select an option" />
-					
+						<Dropdown className="Dropdown-root" options={this.state.options} onChange={this.changeList} value={this.state.listOption} placeholder="Select an option" />
 					<div className = "search">
 						<input
 							className = "Searchbox"
@@ -274,7 +314,7 @@ export class Movies extends Component {
 							id = "searching-movie"
 							placeholder = "Search A Movie Title"
 						/>
-						<button onClick={() => {this.Search()}}>Search</button>
+						<button onClick={()=>this.Search()}>Search</button>
 					</div>
 					<div className="filler"></div>
 				</div>
@@ -284,9 +324,11 @@ export class Movies extends Component {
 						{this.viewPosters()}
 					</div>
 					{this.state.init < this.state.mList.length &&
-            		<button onClick={this.loadMore} type="button" className="load-more">Load more</button>
+            		<button onClick={()=>this.loadMore()} type="button" className="load-more">Load more</button>
           			}
 				</div>
+
+
 				<ReactModal 
 		           isOpen={this.state.showModal}
 		           contentLabel="onRequestClose Example"
@@ -314,7 +356,7 @@ export class Movies extends Component {
 			        		<p>{this.state.showThisMovie.plot}</p>
 			        	</div>
 			        	<div className="actions">
-       		        		<Dropdown alt={this.state.showThisMovie.imdbID} className="modal-dropDown" id="addToNewList" options = {this.state.options} onChange={this.addToList} value={defaultOption} placeholder="Select an option" />
+       		        		<Dropdown alt={this.state.showThisMovie.imdbID} className="modal-dropDown" id="addToNewList" options = {this.state.options} onChange={this.addToNewList} value={defaultOption} placeholder="Select an option" />
 			        		<button className="delete" onClick={()=>{this.deleteMovie(this.state.showThisMovie.imdbID)}}>Delete from Display</button>
 		        		</div>
 		        	</div>

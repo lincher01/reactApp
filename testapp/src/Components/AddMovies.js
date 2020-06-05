@@ -68,6 +68,7 @@ export class AddMovies extends Component {
 		axios.get(URL+val).then(res=>{
 			var movieData = res.data
 			firebase.database().ref('mList/'+movieData.imdbID).set(movieData)
+			firebase.database().ref('ListNames/All/MovieArray/'+movieData.imdbID).set(movieData)
 		});
 
 		this.setState({
