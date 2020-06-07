@@ -7,9 +7,10 @@ import ReactModal from 'react-modal';
 import firebase from 'firebase';
 
 const URL = "https://www.omdbapi.com/?apikey=858c4cb1&i=";
-var ref = firebase.database().ref('mList');
-var ref2 = firebase.database().ref('ListNames')
+var ref2 = firebase.database().ref('ListNames');
+var ref = firebase.database().ref('ListNames/All/MovieArray')
 const defaultOption = "All";
+var i=0;
 
 export class Movies extends Component {
 
@@ -67,8 +68,12 @@ export class Movies extends Component {
 			})
 		});
 	}
-
 	componentDidMount(){
+		console.log("componentDidMount");
+	}
+
+	componentWillMount(){
+		console.log("componentWillMount");
 		var op = []
 		ref2.on('value', (data) =>{
 			var ID = data.val();
@@ -157,7 +162,7 @@ export class Movies extends Component {
 
 
 	updatemList(){
-
+		console.log("updatemList");
 		var op = []
 		ref2.on('value', (data) =>{
 			var ID = data.val();
@@ -211,7 +216,7 @@ export class Movies extends Component {
 
 	deleteMovie(dMovie){
 		console.log("deleting movie" + dMovie);
-		var ref = firebase.database().ref("mList/"+dMovie);
+		var ref = firebase.database().ref("ListNames/All/ArrayMovie"+dMovie);
 		ref.remove().then(function() {
 			console.log("Remove succeeded.")
 			})
@@ -234,7 +239,7 @@ export class Movies extends Component {
   
   	
   	handleOpenModal(input) {
-  		
+  		console.log("open Modal");
   		let data={
   			title:input.target.title,
   			poster: input.target.src,
@@ -249,7 +254,7 @@ export class Movies extends Component {
     	});
   	}
   	handleCloseModal () {
-  		
+  		console.log("close Modal");
     	this.setState({ 
     		showModal: false,
     		showThisMovie: "",
@@ -267,6 +272,7 @@ export class Movies extends Component {
   	}
 
   	changeList(e){
+  		console.log("change List")
   		this.setState(prevState=>({
 			setList: e.value,
 		}));
@@ -274,6 +280,7 @@ export class Movies extends Component {
 	}
 
 	changePosters(a){
+		console.log("change Posters")
 		var newRef = firebase.database().ref("ListNames/"+a+"/MovieArray");
 		const test = [];
 		newRef.on('value', (data) =>{
@@ -290,19 +297,19 @@ export class Movies extends Component {
 		
 	}
 
-
-
 	addToNewList(e){
+		console.log("add To New List");
 		let ListValue = e.value;
 		let movieID = this.state.showThisMovie.imdbID;
 		axios.get(URL+movieID).then(res=>{
 			var data = res.data
 			firebase.database().ref("ListNames/"+ListValue+"/MovieArray/"+movieID).set(data)
-		})
+		});
+		// console.log("Added to new List");
 	}
-
 	render() {
 		
+		// console.log("render" + i);
 		return (
 			<div className = "allMovies">
 				<div className = "Search-options">
@@ -324,7 +331,7 @@ export class Movies extends Component {
 						{this.viewPosters()}
 					</div>
 					{this.state.init < this.state.mList.length &&
-            		<button onClick={()=>this.loadMore()} type="button" className="load-more">Load more</button>
+            			<button onClick={()=>this.loadMore()} type="button" className="load-more">Load more</button>
           			}
 				</div>
 
@@ -357,6 +364,7 @@ export class Movies extends Component {
 			        	</div>
 			        	<div className="actions">
        		        		<Dropdown alt={this.state.showThisMovie.imdbID} className="modal-dropDown" id="addToNewList" options = {this.state.options} onChange={this.addToNewList} value={defaultOption} placeholder="Select an option" />
+			        		
 			        		<button className="delete" onClick={()=>{this.deleteMovie(this.state.showThisMovie.imdbID)}}>Delete from Display</button>
 		        		</div>
 		        	</div>

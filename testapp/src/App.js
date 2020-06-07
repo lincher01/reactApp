@@ -60,6 +60,10 @@ export class App extends Component {
       id: 8,
       title: "Create Lists"
     },
+    {
+      id: 9,
+      title: "Movie Graph"
+    }
   ];
 
     return (

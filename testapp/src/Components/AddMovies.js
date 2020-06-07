@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import firebase from 'firebase';
 import './../App.css';
 import axios from 'axios';
+
 const URL = "https://www.omdbapi.com/?apikey=858c4cb1&i=";
 const validform = (error, imdbID) => {
 	let valid = true;
@@ -14,7 +15,7 @@ const validform = (error, imdbID) => {
   	return valid;
 };
 
-const items=firebase.database().ref('mList');
+const items=firebase.database().ref('ListNames/All/MovieArray');
 
 export class AddMovies extends Component {
 	constructor(){
@@ -28,6 +29,7 @@ export class AddMovies extends Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 	handleChange(e){
+		console.log("handle Change");
 		e.preventDefault();
 		var repeat = false;
 		const{name,value} = e.target;
@@ -56,6 +58,7 @@ export class AddMovies extends Component {
 	}
 
 	handleSubmit(e){
+		console.log("Handle submit")
 		e.preventDefault();
 		if(validform(this.state.error, this.state.imdbID)){
 			alert('Submitted!');
@@ -67,8 +70,8 @@ export class AddMovies extends Component {
 		let val = this.state.imdbID;
 		axios.get(URL+val).then(res=>{
 			var movieData = res.data
-			firebase.database().ref('mList/'+movieData.imdbID).set(movieData)
 			firebase.database().ref('ListNames/All/MovieArray/'+movieData.imdbID).set(movieData)
+			firebase.database().ref('GraphViz/'+movieData.imdbID).set(movieData)
 		});
 
 		this.setState({
@@ -77,6 +80,7 @@ export class AddMovies extends Component {
 	}
 
 	componentDidMount(){
+		console.log("componentDidMount");
 		items.on('value', (snapshot) => {
 			let ID = snapshot.val();
 			let newState = [];

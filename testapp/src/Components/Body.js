@@ -7,6 +7,7 @@ import Guests from './Guests';
 import Movies from './Movies';
 import AddMovies from './AddMovies';
 import CreateLists from './CreateLists';
+import MovieGraph from './MovieGraph';
 
 export class Body extends Component {
 	displayContent = () => {
@@ -25,8 +26,10 @@ export class Body extends Component {
 			return<Movies/>
 		else if(activeTab === 7)
 			return<AddMovies/>
-		else
+		else if(activeTab === 8)
 			return<CreateLists/>
+		else
+			return<MovieGraph/>
 
 	}
 	render() {
