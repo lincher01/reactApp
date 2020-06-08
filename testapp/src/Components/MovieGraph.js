@@ -112,11 +112,7 @@ export class MovieGraph extends Component {
     componentDidUpdate(){
     	console.log("componentDidUpdate");
     	const elem = document.getElementById("pikachu");
-    	if(this.state.movieList.length!==0 &&  Object.keys(this.state.Nodes).length !== 0 && Object.keys(this.state.Links).length !== 0 ){
-    		const links = [{
-                source: 1,
-                target: 0
-            }]
+    	if(this.state.movieList.length!==0 && Object.keys(this.state.Links).length !== 0 ){
     		elem.appendChild(this.chart(this.state.Nodes, this.state.Links));
     	}
     }
@@ -148,8 +144,6 @@ export class MovieGraph extends Component {
 			.on("end", dragEnded);
 	}
 
-	mouse
-
     chart(nodes, links){
     	console.log("chart");
     	const width=1920;
@@ -172,7 +166,7 @@ export class MovieGraph extends Component {
 
     	const color = (node) => {
     		if(node.group == "Actor")
-    			return d3.color("pink");
+    			return d3.color("#8899a6");
     		else{
     			return d3.color("blue");
     		}
@@ -192,7 +186,6 @@ export class MovieGraph extends Component {
     		if(node.group == "Movie"){
     			defs.append('pattern')
                     .attr('id', 'img_'+node.id)
-                    .attr('patternUnits', 'objectBoundingBox')
                     .attr('width', 1)
                     .attr('height', 1)
                 .append('image')
@@ -201,10 +194,10 @@ export class MovieGraph extends Component {
                     .attr("height", 300)
                     .attr("x", -50)
                     .attr("y", 0);
-    			return"url(#img_" + node.id+ ")"
+    			return"url(#img_"+node.id+")"
     		}
     		else{
-    			return d3.color("pink")
+    			return d3.color("#8899a6")
     		}
     	}
     	
@@ -212,26 +205,40 @@ export class MovieGraph extends Component {
     		.force("link", d3.forceLink().links(links).id(d=>{return d.index; }).distance(200))
     		.force("charge",d3.forceManyBody())
     		.force("center",d3.forceCenter(width/2,height/2));
-
-    	// var tooltip = svg.append("text")
     	
-    	
-    	// const mouseOver = (node) =>{
-    		
-    	// 	if(node.group == "Actor"){
-    	// 		console.log("mouseOver");
-    	// 		tooltip.text("hello")
-    	// 	}
-    	// 	return tooltip.text
-    	// }
 
-    	const mouseMove = (node) =>{
-
-    	}
-
-    	const mouseOut = (node) =>{
-
-    	}
+    	var tooltip = d3.select("body")
+            .append("div")
+            .style("position", "absolute")
+            .style("z-index", "10")
+            .style("opacity", 0)
+            .style("background-color", "#00abee")
+            .style("border", "solid")
+            .style("border-width", "2px")
+            .style("border-radius", "2px")
+            .style("padding", "2px")
+        
+        var mouseOver = function(d) {
+            if(d.group == "Actor"){
+                tooltip
+                .style("opacity", 1)
+                d3.select(this)
+                .style("stroke", "#00abee")
+                .style("opacity", 1)
+            }
+        }
+        var mouseMove = function(d) {
+            tooltip
+            .html(d.Title) 
+            .style("left", (d3.mouse(this)[0]-500) + "px")
+            .style("top", (d3.mouse(this)[1]+300) + "px")
+        }
+        var mouseLeave = function(d) {
+            tooltip
+                .style("opacity", 0)
+            d3.select(this)
+                .style("stroke", "white")
+        }
 
 		const node = svg.append("g")
     		.attr("stroke", "#fff")
@@ -241,9 +248,9 @@ export class MovieGraph extends Component {
     		.join("circle")
     		.attr("r", size)
     		.attr("fill", moviePoster)
-    		.on("mouseover", function(d){d3.select(this).select("text").style("visibility", "visible")})
+    		.on("mouseover", mouseOver)
     		.on("mousemove", mouseMove)
-    		.on("mouseout", mouseOut)
+    		.on("mouseleave", mouseLeave)
     		.call(this.drag(simulation));    	
 
     	simulation.on("tick", ()=>{
@@ -257,7 +264,7 @@ export class MovieGraph extends Component {
     			.attr("cy", d=>d.y)
     	});
     	return svg.node();
-    }
+    };
 
 	
 
